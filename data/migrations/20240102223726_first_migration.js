@@ -7,6 +7,23 @@ exports.up = async function(knex) {
     table.increments("recipe_id")
     table.string("recipe_name").notNullable().unique()
     table.dateTime("created_at").notNullable()
+  })
+  await knex.schema.createTable("steps", table => {
+    table.increments("step_id")
+    table.integer("step_number").notNullable()
+    table.integer("recipe_id")
+      .unsigned()
+      .notNullable()
+      .references("recipe_id")
+      .inTable("recipe_id")
+      .onDelete("RESTRICT")
+      .onUpdate("RESTRICT")
+  })
+  await knex.schema.createTable("ingredients", table => {
+    table.increments("ingredient_id")
+  })
+  await knex.schema.createTable("step_ingredients", table => {
+    table.integer("s_i_id")
     table.integer("step_id")
       .unsigned()
       .notNullable()
@@ -15,11 +32,6 @@ exports.up = async function(knex) {
       .onDelete("RESTRICT")
       .onUpdate("RESTRICT")
   })
-  await knex.schema.createTable("steps", table => {
-    table.increments("step_id")
-  })
-  await knex.schema.createTable("ingredients")
-  await knex.schema.createTable("step_ingredients")
 };
 
 /**
