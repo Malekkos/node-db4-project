@@ -11,6 +11,7 @@ exports.up = async function(knex) {
   await knex.schema.createTable("ingredients", table => {
     table.increments("ingredient_id")
     table.string("ingredient_name").notNullable().unique()
+    table.string("ingredient_quantity").notNullable()
   })
   await knex.schema.createTable("steps", table => {
     table.increments("step_id")
@@ -40,7 +41,6 @@ exports.up = async function(knex) {
       .inTable("ingredients")
       .onDelete("RESTRICT")
       .onUpdate("RESTRICT")
-    table.string("ingredient_quantity").notNullable()
   })
 };
 
