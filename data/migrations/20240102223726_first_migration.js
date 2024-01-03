@@ -27,6 +27,7 @@ exports.up = async function(knex) {
   })
   await knex.schema.createTable("step_ingredients", table => {
     table.integer("s_i_id")
+    table.float("quantity").notNullable()
     table.integer("step_id")
       .unsigned()
       .notNullable()
