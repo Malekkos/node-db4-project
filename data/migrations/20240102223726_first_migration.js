@@ -21,7 +21,7 @@ exports.up = async function(knex) {
       .unsigned()
       .notNullable()
       .references("recipe_id")
-      .inTable("recipe_id")
+      .inTable("recipes")
       .onDelete("RESTRICT")
       .onUpdate("RESTRICT")
   })
